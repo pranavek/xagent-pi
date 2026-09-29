@@ -1,0 +1,5 @@
+node_modules/
+*.log
+.DS_Store
+# project-local pi state (sessions, trust) if xagent is run inside this repo
+.pi/
