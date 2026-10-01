@@ -19,6 +19,21 @@ LAYA_MODELS=english LAYA_MAX_LOADED=1 ~/.xagent/laya/bin/laya-serve &   # listen
 ```
 By default `laya-serve` loads all three checkpoints (~1.2B parameters), which can exhaust memory and get killed with `SIGKILL`. `LAYA_MODELS=english` loads only the one xagent needs.
 
+```text
+                 ┌───────────────┐
+                 │  Laya Server  │
+                 └───────▲───────┘
+                         │
+                         ▼
+     o           ┌───────────────┐      ┌──────────────────┐      ┌────────────┐
+    /|\  ──────> │  Pi harness   ├────> │ pi-claude-bridge ├────> │   Claude   │
+    / \          └───────┬───────┘      └──────────────────┘      └────────────┘
+   Actor                 │
+                         └────────────> ┌──────────────────┐      ┌────────────┐
+                                        │      Ollama      ├────> │    Qwen    │
+                                        └──────────────────┘      └────────────┘
+```
+
 **Examples**
 ```bash
 # defaults: easy → first ollama/* model, hard → claude-sonnet-5-5, hardest → claude-opus-5-5
